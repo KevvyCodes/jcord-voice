@@ -1,4 +1,7 @@
+"use strict";
+
 const GuildChannel = require('./GuildChannel');
+const Voice = require('../voice/voice');
 
 /**
  * @extends GuildChannel Represents a guild voice channel
@@ -20,6 +23,17 @@ class VoiceChannel extends GuildChannel {
 
   get parent() {
     return this.parentID ? this.client.channels.get(this.parentID) : null;
+  }
+
+  join(options = {}) {
+    options = {
+      guildID: this.guild.id,
+      channelID: this.id,
+      muted: options.muted || false,
+      deaf: options.deaf || false
+    };
+
+    return new Voice(this.guild.shard, options).connect();
   }
 };
 

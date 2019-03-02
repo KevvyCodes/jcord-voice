@@ -67,7 +67,7 @@ class Guild extends UnavailableGuild {
     this.splash = data.splash;
     this.systemChannelID = data.system_channel_id;
     this.verificationLevel = data.verification_level;
-    this.voiceStates = data.voice_states;
+    this.voiceStates = new Store();
     
     Object.defineProperty(this, '_roleStatus', { value: false, writable: true });
 
@@ -111,6 +111,10 @@ class Guild extends UnavailableGuild {
 
     for (var i = 0; i < this.presences.length; i++) {
       this.client._presences.set(this.presences[i].user.id, { status: this.presences[i].status, game: this.presences[i].game });
+    };
+
+    for (var i = 0; i < data.voice_states.length; i++) {
+      this.voiceStates.set(data.voice_states[i].user_id, data.voice_states[i]);
     };
   }
 

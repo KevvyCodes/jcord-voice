@@ -105,6 +105,18 @@ class Member {
     return new Permissions(permissions);
   }
 
+  get voiceChannelID() {
+    if (this.guild.voiceStates.has(this.user.id)) {
+      return this.guild.voiceStates.get(this.user.id).channel_id;
+    } else {
+      return null;
+    };
+  }
+
+  get voiceChannel() {
+    return this.voiceChannelID ? this.client.channels.get(this.voiceChannelID) : null;
+  }
+
   /**
    * Bans the member from the guild
    * @param {Object} [options] Options for the guild ban

@@ -19,6 +19,7 @@ const GuildMemberUpdate = require('./events/guildmemberupdate');
 const RoleCreate = require('./events/rolecreate');
 const RoleDelete = require('./events/roledelete');
 const RoleUpdate = require('./events/roleupdate');
+const VoiceStateUpdate = require('./events/voicestateupdate');
 
 let Websocket;
 
@@ -370,6 +371,10 @@ class Shard {
 
       case 'GUILD_DELETE':  
         new GuildDelete().emit(this, packet);
+        break;
+
+      case 'VOICE_STATE_UPDATE':
+        new VoiceStateUpdate().emit(this, packet);
         break;
     }
   }
